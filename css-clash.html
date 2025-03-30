@@ -2154,14 +2154,298 @@
           2: "box-shadow: 0 4px 15px rgba(249, 167, 199, 0.4)",
           3: "background: linear-gradient(135deg, #b88fda 0%, #f9a7c7 100%);"
         }
-      }
+      },
+      {
+  id: 6,
+  title: "Floating Card",
+  description: "A simple card with shadow and hover effect",
+  difficulty: "Intermediate",
+  category: "Layout",
+  html: `<div class="floating-card">Floating Card</div>`,
+  targetCss: `.floating-card {
+    width: 200px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+  }
+  .floating-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  }`,
+  starterCss: `.floating-card {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);",
+    2: "transform: translateY(-5px);"
+  }
+},
+{
+  id: 7,
+  title: "Pulsing Circle",
+  description: "A circle with a pulsing animation effect",
+  difficulty: "Beginner",
+  category: "Animation",
+  html: `<div class="pulse-circle"></div>`,
+  targetCss: `.pulse-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #ff6b6b;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }`,
+  starterCss: `.pulse-circle {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "border-radius: 50%;",
+    2: "animation: pulse 1.5s infinite;"
+  }
+},
+{
+  id: 8,
+  title: "Wavy Text",
+  description: "Creates a wave animation on text",
+  difficulty: "Advanced",
+  category: "Typography",
+  html: `<h1 class="wavy-text">Wavy Effect</h1>`,
+  targetCss: `.wavy-text {
+    font-size: 2rem;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    animation: wave 2s infinite linear;
+  }
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }`,
+  starterCss: `.wavy-text {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "animation: wave 2s infinite linear;",
+    2: "@keyframes wave { /* animation steps */ }"
+  }
+},
+{
+  id: 9,
+  title: "Neon Glow Button",
+  description: "A button with a glowing neon effect",
+  difficulty: "Intermediate",
+  category: "Shapes",
+  html: `<button class="neon-btn">Click Me</button>`,
+  targetCss: `.neon-btn {
+    background: black;
+    color: cyan;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: 2px solid cyan;
+    border-radius: 10px;
+    text-shadow: 0 0 10px cyan;
+    box-shadow: 0 0 10px cyan;
+    transition: all 0.3s ease;
+  }
+  .neon-btn:hover {
+    box-shadow: 0 0 20px cyan;
+    text-shadow: 0 0 20px cyan;
+  }`,
+  starterCss: `.neon-btn {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "box-shadow: 0 0 10px cyan;",
+    2: "text-shadow: 0 0 10px cyan;"
+  }
+},
+{
+  id: 10,
+  title: "Typing Effect",
+  description: "Simulates typing text animation",
+  difficulty: "Advanced",
+  category: "Typography",
+  html: `<h1 class="typing-text">Hello, World!</h1>`,
+  targetCss: `.typing-text {
+    font-size: 2rem;
+    font-weight: bold;
+    overflow: hidden;
+    border-right: 2px solid black;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 3s steps(12) forwards;
+  }
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }`,
+  starterCss: `.typing-text {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "animation: typing 3s steps(12) forwards;",
+    2: "border-right: 2px solid black;"
+  }
+},
+{
+  id: 11,
+  title: "Glassmorphism Card",
+  description: "A stylish glassmorphism card with transparency and blur effect",
+  difficulty: "Intermediate",
+  category: "Layout",
+  html: `<div class="glass-card">Glassmorphism</div>`,
+  targetCss: `.glass-card {
+    width: 250px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }`,
+  starterCss: `.glass-card {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "backdrop-filter: blur(10px);",
+    2: "box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);"
+  }
+},
+{
+  id: 12,
+  title: "Loading Spinner",
+  description: "A rotating circular loader animation",
+  difficulty: "Beginner",
+  category: "Animation",
+  html: `<div class="spinner"></div>`,
+  targetCss: `.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }`,
+  starterCss: `.spinner {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "border-radius: 50%;",
+    2: "animation: spin 1s linear infinite;"
+  }
+},
+{
+  id: 13,
+  title: "3D Rotating Box",
+  description: "A cube that rotates continuously in 3D",
+  difficulty: "Advanced",
+  category: "Shapes",
+  html: `<div class="cube"></div>`,
+  targetCss: `.cube {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #f06, #9f6);
+    transform: rotate3d(1, 1, 1, 0deg);
+    animation: rotate3D 3s infinite linear;
+  }
+  @keyframes rotate3D {
+    from { transform: rotate3d(1, 1, 1, 0deg); }
+    to { transform: rotate3d(1, 1, 1, 360deg); }
+  }`,
+  starterCss: `.cube {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "transform: rotate3d(1, 1, 1, 0deg);",
+    2: "animation: rotate3D 3s infinite linear;"
+  }
+},
+{
+  id: 14,
+  title: "Shiny Gradient Text",
+  description: "A text effect with a gradient shimmer animation",
+  difficulty: "Intermediate",
+  category: "Typography",
+  html: `<h1 class="shiny-text">Shiny Text</h1>`,
+  targetCss: `.shiny-text {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 2s infinite alternate;
+  }
+  @keyframes shine {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+  }`,
+  starterCss: `.shiny-text {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "-webkit-background-clip: text;",
+    2: "animation: shine 2s infinite alternate;"
+  }
+},
+{
+  id: 15,
+  title: "Expanding Search Bar",
+  description: "A search bar that expands when clicked",
+  difficulty: "Advanced",
+  category: "Layout",
+  html: `<input type="text" class="expand-search" placeholder="Search...">`,
+  targetCss: `.expand-search {
+    width: 50px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 25px;
+    transition: width 0.4s ease-in-out;
+  }
+  .expand-search:focus {
+    width: 200px;
+    outline: none;
+  }`,
+  starterCss: `.expand-search {
+    /* your styles here */
+  }`,
+  hints: {
+    1: "transition: width 0.4s ease-in-out;",
+    2: "border-radius: 25px;"
+  }
+}
     ];
     
     // Generate a total of 100 challenges based on the first 3
     // This is for demonstration purposes - in a real app, each challenge would be unique
-    for (let i = 4; i <= 100; i++) {
+    for (let i = 15; i <= 100; i++) {
       // Clone and modify an existing challenge
-      const baseChallenge = challenges[i % 3]; // Cycle through the first 3 challenges
+      const baseChallenge = challenges[i % 15]; // Cycle through the first 3 challenges
       const newChallenge = { ...baseChallenge };
       
       newChallenge.id = i;
