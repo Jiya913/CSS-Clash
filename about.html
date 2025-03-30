@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About CSS Clash: The Style Arena</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico">
+  <style>
+    /* Reset and Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --primary: #e879f9;
+      --primary-dark: #d946ef;
+      --secondary: #f472b6;
+      --tertiary: #c084fc;
+      --bg-body: #fdf4ff;
+      --bg-editor: #1e293b;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --text-editor: #f8fafc;
+      --border-color: #f5d0fe;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 0.5rem;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.5;
+      background-image: linear-gradient(45deg, #fae8ff 25%, transparent 25%), 
+                        linear-gradient(-45deg, #fae8ff 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #fae8ff 75%), 
+                        linear-gradient(-45deg, transparent 75%, #fae8ff 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    
+    header {
+      background-color: white;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--tertiary));
+      color: white;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      margin-right: 0.75rem;
+      box-shadow: 0 2px 10px rgba(216, 180, 254, 0.5);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+      background-color: rgba(232, 121, 249, 0.1);
+    }
+    
+    .nav-link.active {
+      color: var(--primary);
+      background-color: rgba(232, 121, 249, 0.1);
+    }
+    
+    main {
+      padding: 2rem 0;
+    }
+    
+    .page-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background-color: rgba(232, 121, 249, 0.1);
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background-image: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .page-description {
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+    
+    /* About Page Specific Styles */
+    .about-section {
+      background-color: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-section:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .section-title svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+    .about-content {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .feature-card {
+      background-color: rgba(232, 121, 249, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      background-color: rgba(232, 121, 249, 0.1);
+    }
+    
+    .feature-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--tertiary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: white;
+      box-shadow: 0 4px 10px rgba(216, 180, 254, 0.3);
+    }
+    
+    .feature-icon svg {
+      width: 2rem;
+      height: 2rem;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .step-list {
+      list-style: none;
+      counter-reset: step-counter;
+      margin: 2rem 0;
+    }
+    
+    .step-item {
+      position: relative;
+      padding: 1.5rem 1.5rem 1.5rem 4rem;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .step-item:hover {
+      transform: translateX(10px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .step-item::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2rem;
+      height: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--tertiary));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(216, 180, 254, 0.4);
+    }
+    
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+    
+    .step-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    .cta-section {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 2px 5px rgba(232, 121, 249, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(232, 121, 249, 0.4);
+    }
+    
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    @media (min-width: 640px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .team-card {
+      background-color: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .team-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .team-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .team-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-dark);
+    }
+    
+    .team-role {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .team-bio {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: rgba(232, 121, 249, 0.1);
+      color: var(--primary);
+      transition: all 0.2s;
+    }
+    
+    .social-link:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    .social-link svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      margin-top: 4rem;
+      background-color: white;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-link:hover {
+      color: var(--primary);
+    }
+    
+    .copyright {
+      margin-top: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fadeIn {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <span class="logo-badge">CSS</span>
+          <span>CSS Clash: The Style Arena</span>
+        </a>
+        
+        <nav class="nav-links">
+          <a href="css-clash.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link active">About</a>
+          <a href="css-clash.html#challenges" class="nav-link">Challenges</a>
+          <a href="css-clash.html#tips" class="nav-link">CSS Tips</a>
+          <a href="css-clash.html#gallery" class="nav-link">Gallery</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <div class="page-title">
+        <span class="page-badge">Our Mission</span>
+        <h1>About CSS Clash: The Style Arena</h1>
+        <p class="page-description">
+          CSS Clash is a fun and interactive platform designed to help developers master CSS through practical challenges and real-time feedback. We believe that the best way to learn is by doing, and that's why we've created this style arena.
+        </p>
+      </div>
+      
+      <section class="about-section animate-fadeIn">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          Our Story
+        </h2>
+        <div class="about-content">
+          <p>
+            CSS Clash was born out of the recognition that many developers struggle with CSS, despite its fundamental importance in web development. While there are plenty of tutorials and documentation available, we noticed a gap in practical, engaging learning resources that allow developers to test and refine their CSS skills in a fun, gamified environment.
+          </p>
+          <p>
+            Our team of passionate web developers and designers came together with a shared vision: to create a platform that transforms the sometimes frustrating process of learning CSS into an enjoyable, challenging experience. We believe that by breaking down complex CSS concepts into bite-sized challenges, and providing immediate visual feedback, we can help developers of all levels improve their styling skills.
+          </p>
+          <p>
+            Today, CSS Clash hosts over 100 carefully crafted challenges, ranging from simple shape creation to complex layouts and animations. Our community continues to grow, with developers from around the world participating in challenges, sharing solutions, and learning together.
+          </p>
+        </div>
+      </section>
+      
+      <section class="about-section animate-fadeIn delay-100">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Our Mission
+        </h2>
+        <div class="about-content">
+          <p>
+            <strong>CSS Clash: The Style Arena</strong> is on a mission to make learning CSS more accessible, enjoyable, and effective for developers of all skill levels. We aim to:
+          </p>
+          <ul class="step-list">
+            <li class="step-item">
+              <h3 class="step-title">Demystify CSS</h3>
+              <p class="step-description">
+                Break down complex CSS concepts into manageable, focused challenges that isolate specific techniques and properties.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Foster Practical Learning</h3>
+              <p class="step-description">
+                Provide a hands-on environment where users can experiment with CSS in real-time and see immediate visual results.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Build Confidence</h3>
+              <p class="step-description">
+                Help developers gain confidence in their CSS skills through progressively challenging exercises and positive reinforcement.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Create Community</h3>
+              <p class="step-description">
+                Establish a supportive community where developers can share solutions, tips, and inspiration.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      
+      <section class="about-section animate-fadeIn delay-200">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          How It Works
+        </h2>
+        <div class="about-content">
+          <p>
+            CSS Clash offers a unique approach to learning CSS through practical challenges. Here's how our platform works:
+          </p>
+          <ul class="step-list">
+            <li class="step-item">
+              <h3 class="step-title">Register and Log In</h3>
+              <p class="step-description">
+                Create an account to track your progress, save completed challenges, and build your CSS skill profile over time.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Choose a Challenge</h3>
+              <p class="step-description">
+                Browse our gallery of 100+ challenges, organized by difficulty level and CSS concept. Select one that interests you or matches your current skill level.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Understand the Target</h3>
+              <p class="step-description">
+                Each challenge presents you with a target design to replicate. Study the visual example carefully to understand what you need to create.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Write Your CSS</h3>
+              <p class="step-description">
+                Use our built-in CSS editor to write your solution. We provide the HTML structure, and you focus purely on the CSS styling.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">See Real-time Results</h3>
+              <p class="step-description">
+                As you write your CSS, watch your output update in real-time, allowing you to immediately see the effects of your code changes.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Get Hints When Stuck</h3>
+              <p class="step-description">
+                If you get stuck, use our hint system for guidance without spoiling the full solution. Hints provide just enough information to help you move forward.
+              </p>
+            </li>
+            <li class="step-item">
+              <h3 class="step-title">Track Your Progress</h3>
+              <p class="step-description">
+                See how your solution matches the target with our percentage match indicator. Earn achievements and watch your overall skill level increase as you complete more challenges.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      
+      <section class="about-section animate-fadeIn delay-300">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          Key Features
+        </h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <path d="M20.4 14.5 16 10 4 20"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">100+ CSS Challenges</h3>
+            <p class="feature-description">
+              From basic shapes to complex layouts and animations, our diverse challenge library covers all aspects of CSS.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Live CSS Editor</h3>
+            <p class="feature-description">
+              Write CSS in our intuitive editor and see your changes reflected in real-time as you code.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Progress Tracking</h3>
+            <p class="feature-description">
+              Monitor your improvement with detailed statistics and a visual progress dashboard.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Achievement System</h3>
+            <p class="feature-description">
+              Earn badges and achievements as you master different CSS concepts and complete challenge milestones.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Helpful Hints</h3>
+            <p class="feature-description">
+              Get unstuck with our hint system that provides guidance without revealing the complete solution.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Community Gallery</h3>
+            <p class="feature-description">
+              Explore solutions from other users and share your own creative approaches to challenges.
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="about-section animate-fadeIn delay-400">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Meet Our Team
+        </h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <img src="src/Me.png" alt="Team Member" class="team-image">
+            <div class="team-info">
+              <h3 class="team-name">The Mastermind (a.k.a. Me)</h3>
+              <p class="team-role">Chaos Coordinator & Challenge Creator</p>
+              <p class="team-bio">
+                Architect of mind-bending CSS challenges, dedicated to making developers question their life choices (in a fun way). Balances the fine line between educational and "Why is this not working?!" moments.
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1s-1.18-.38-3.91 1.48a13.38 13.38 0 0 0-7 0C5.27.62 4.09 1 4.09 1A5.07 5.07 0 0 0 4 4.77 5.44 5.44 0 0 0 2.5 8.91c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.6V22"/>
+                  </svg>
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="src/sister.png" alt="Team Member" class="team-image" style="object-fit: contain;">
+            <div class="team-info">
+              <h3 class="team-name">The Confused Supporter (a.k.a. My Sister)</h3>
+              <p class="team-role">Moral Support & My Personal Fault Finder</p>
+              <p class="team-bio">
+                Has no idea what’s going on but still nods along like a pro. Specializes in pointing out mistakes, even when they don’t exist. Primary role: asking, "Is this even a real job?" and reminding me to take breaks (or do something ‘productive’).  
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="src/laptop.jpg" alt="Team Member" class="team-image">
+            <div class="team-info">
+              <h3 class="team-name">The Overworked Laptop</h3>
+              <p class="team-role">Survivor & Chief Bug Fixer</p>
+              <p class="team-bio">
+                Running on caffeine-free energy, this 3-year-old warrior has handled countless late-night debugging battles. Expert in freezing at the worst moments and testing your patience, but still the most loyal coding companion!
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="src/vs_code.png" alt="Team Member" class="team-image">
+            <div class="team-info">
+              <h3 class="team-name">VS Code – The All-Knowing</h3>
+              <p class="team-role">Mood-Swinging UI/UX Designer</p>
+              <p class="team-bio">
+                A creative genius who suggests fixes before you even realize there's a problem. Loves making your workspace look clean and organized—until too many extensions turn it into controlled chaos. Best friend and occasional nemesis of every developer.  
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="src/AI.jpg" alt="Team Member" class="team-image">
+            <div class="team-info">
+              <h3 class="team-name">AI – The Life Saver</h3>
+              <p class="team-role">Bug Whisperer & Debugging Therapist</p>
+              <p class="team-bio">
+                Your 24/7 coding assistant, always ready with solutions (or more confusion). Expert in generating fixes, refactoring code, and making you feel either like a genius or an imposter.
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <div class="cta-section animate-fadeIn delay-500">
+        <a href="css-clash.html" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          Start Your CSS Journey
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="index.html" class="logo">
+          <span class="logo-badge">CSS</span>
+          <span>CSS Clash: The Style Arena</span>
+        </a>
+        <div class="footer-links">
+          <a href="css-clash.html" class="footer-link">Home</a>
+          <a href="about.html" class="footer-link">About</a>
+          <a href="css-clash.html#challenges" class="footer-link">Challenges</a>
+          <a href="css-clash.html#tips" class="footer-link">CSS Tips</a>
+          <a href="css-clash.html#gallery" class="footer-link">Gallery</a>
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Privacy</a>
+        </div>
+        <p class="copyright">© <span id="current-year">2023</span> CSS Clash: The Style Arena. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- <script>
+    // Set the current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Check if user is logged in
+    window.addEventListener('DOMContentLoaded', () => {
+      const isLoggedIn = localStorage.getItem('cssClash_isLoggedIn') === 'true';
+      if (!isLoggedIn) {
+        // Redirect to login if not logged in
+        window.location.href = '/login.html';
+      }
+    });
+  </script> -->
+</body>
+</html>

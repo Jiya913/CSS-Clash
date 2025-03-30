@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Learn: Master CSS Properties</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico">
+  <style>
+    :root {
+      --primary: #9b6dff;
+      --primary-hover: #8456e9;
+      --secondary: #ff6d9b;
+      --secondary-hover: #e95684;
+      --light-purple: #f3eaff;
+      --light-pink: #ffebf3;
+      --white: #ffffff;
+      --black: #1a1a1a;
+      --dark: #333333;
+      --gray: #666666;
+      --light-gray: #f5f5f7;
+      --border-color: #e6e6e6;
+      --radius: 0.5rem;
+      --radius-sm: 0.25rem;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+      --container-width: 1200px;
+      --header-height: 70px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-purple);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .navbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: var(--header-height);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--gray);
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.875rem;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--white);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 4px 12px rgba(155, 109, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--light-purple);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--dark);
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      background-color: var(--white);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 1rem 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .mobile-nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      padding: 0.75rem 0;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+    }
+
+    .mobile-auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem 0;
+    }
+
+    .mobile-btn {
+      width: 100%;
+      padding: 0.75rem;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding-top: calc(var(--header-height) + 2rem);
+      padding-bottom: 4rem;
+      min-height: 100vh;
+    }
+
+    /* Learning UI */
+    .learning-container {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .sidebar {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      height: fit-content;
+      position: sticky;
+      top: calc(var(--header-height) + 2rem);
+    }
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .category {
+      margin-bottom: 1.5rem;
+    }
+
+    .category-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .category-items {
+      margin-left: 0.5rem;
+      display: none;
+    }
+
+    .category-items.active {
+      display: block;
+    }
+
+    .property-item {
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      color: var(--gray);
+    }
+
+    .property-item:hover {
+      background-color: var(--light-purple);
+      color: var(--primary);
+    }
+
+    .property-item.active {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background-color: var(--light-gray);
+      border-radius: 999px;
+      margin-top: 2rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+
+    /* Main lesson area */
+    .lesson-area {
+      width: 900px;
+      max-width: 1800px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    .lesson-header {
+      margin-bottom: 2rem;
+    }
+
+    .property-title {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .property-category {
+      font-size: 0.875rem;
+      color: var(--gray);
+      background-color: var(--light-purple);
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .property-description {
+      font-size: 1.125rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .example-section {
+      margin-bottom: 2rem;
+    }
+
+    .example-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .example-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .example-header {
+      background-color: var(--light-gray);
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .example-content {
+      padding: 1.5rem;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .example-code {
+      flex: 1;
+      font-family: monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      background-color: var(--light-gray);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-x: auto;
+    }
+
+    .example-visual {
+      flex: 1;
+      background-color: var(--light-gray);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .syntax-section {
+      margin-bottom: 2rem;
+    }
+
+    .syntax-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .syntax-box {
+      background-color: var(--light-gray);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      font-family: monospace;
+      margin-bottom: 1rem;
+      white-space: pre-wrap;
+    }
+
+    .syntax-description {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .values-section {
+      margin-bottom: 2rem;
+    }
+
+    .values-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .values-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+
+    .values-table th {
+      background-color: var(--light-purple);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border-color);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .values-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.875rem;
+    }
+
+    .values-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .browser-support {
+      margin-bottom: 2rem;
+    }
+
+    .browser-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .browser-icons {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .browser-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.75rem;
+    }
+
+    .browser-icon svg {
+      width: 2rem;
+      height: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-section {
+      background-color: var(--light-purple);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 2rem;
+    }
+
+    .note-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .note-content {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+    }
+
+    .prev-button,
+    .next-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+    }
+
+    .prev-button {
+      background-color: var(--light-gray);
+      color: var(--gray);
+    }
+
+    .prev-button:hover {
+      background-color: var(--border-color);
+    }
+
+    .next-button {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--white);
+    }
+
+    .next-button:hover {
+      box-shadow: 0 4px 12px rgba(155, 109, 255, 0.3);
+    }
+
+    /* Quiz UI */
+    .quiz-container {
+      display: none;
+    }
+
+    .quiz-container.active {
+      display: block;
+    }
+
+    .quiz-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .quiz-title {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+
+    .quiz-description {
+      font-size: 1.125rem;
+      color: var(--gray);
+    }
+
+    .quiz-progress {
+      margin-bottom: 2rem;
+    }
+
+    .quiz-progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .quiz-progress-bar {
+      height: 0.5rem;
+      background-color: var(--light-gray);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-value {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+
+    .question-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .question-number {
+      font-size: 0.875rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .question-text {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .option {
+      background-color: var(--light-gray);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .option:hover {
+      background-color: var(--light-purple);
+      border-color: var(--primary);
+    }
+
+    .option.selected {
+      background-color: var(--light-purple);
+      border-color: var(--primary);
+    }
+
+    .option.correct {
+      background-color: rgba(52, 211, 153, 0.2);
+      border-color: #34D399;
+    }
+
+    .option.incorrect {
+      background-color: rgba(239, 68, 68, 0.2);
+      border-color: #EF4444;
+    }
+
+    .option-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .option-marker {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 500;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      background-color: var(--white);
+      border: 1px solid var(--border-color);
+    }
+
+    .option.selected .option-marker {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .option.correct .option-marker {
+      background-color: #34D399;
+      color: white;
+      border-color: #34D399;
+    }
+
+    .option.incorrect .option-marker {
+      background-color: #EF4444;
+      color: white;
+      border-color: #EF4444;
+    }
+
+    .option-text {
+      font-size: 1rem;
+      color: var(--dark);
+    }
+
+    .quiz-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .quiz-back-button,
+    .quiz-next-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+    }
+
+    .quiz-back-button {
+      background-color: var(--light-gray);
+      color: var(--gray);
+    }
+
+    .quiz-back-button:hover {
+      background-color: var(--border-color);
+    }
+
+    .quiz-next-button {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--white);
+    }
+
+    .quiz-next-button:hover {
+      box-shadow: 0 4px 12px rgba(155, 109, 255, 0.3);
+    }
+
+    .quiz-next-button:disabled {
+      background: var(--light-gray);
+      color: var(--gray);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .explanation {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: var(--light-purple);
+      border-radius: var(--radius-sm);
+      display: none;
+    }
+
+    .explanation.active {
+      display: block;
+    }
+
+    .explanation-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .explanation-content {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .quiz-result {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      text-align: center;
+      display: none;
+    }
+
+    .quiz-result.active {
+      display: block;
+    }
+
+    .result-score {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .result-message {
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .result-detail {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .result-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .review-button,
+    .continue-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .review-button {
+      background-color: var(--light-gray);
+      color: var(--gray);
+    }
+
+    .review-button:hover {
+      background-color: var(--border-color);
+    }
+
+    .continue-button {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--white);
+    }
+
+    .continue-button:hover {
+      box-shadow: 0 4px 12px rgba(155, 109, 255, 0.3);
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .desktop-nav, .auth-buttons {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .learning-container {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        top: 0;
+      }
+
+      .example-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .browser-icons {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="container navbar-content">
+      <a href="css-clash.html" class="logo">
+        <span class="logo-badge">CS</span>
+        <span>CSS Clash</span>
+      </a>
+      
+      <div class="desktop-nav">
+        <a href="css-clash.html" class="nav-link">Home</a>
+        <a href="css-learn.html" class="nav-link active">Learn</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="about.html" class="nav-link">About</a>
+      </div>
+      
+      <div class="auth-buttons">
+        <span id="user-greeting"></span>
+        <button id="logout-btn" class="btn btn-outline">Log Out</button>
+      </div>
+      
+      <button class="mobile-menu-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="mobile-menu">
+      <div class="mobile-nav">
+        <a href="css-clash.html" class="mobile-nav-link">Home</a>
+        <a href="css-learn.html" class="mobile-nav-link active">Learn</a>
+        <a href="challenges.html" class="mobile-nav-link">Challenges</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+      </div>
+      
+      <div class="mobile-auth-buttons">
+        <button id="mobile-logout-btn" class="btn btn-outline mobile-btn">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="container">
+      <div class="learning-container">
+        <!-- Sidebar with categories and properties -->
+        <div class="sidebar">
+          <h2 class="sidebar-title">CSS Properties</h2>
+          
+          <div class="category">
+            <h3 class="category-title" data-category="box-model">
+              Box Model
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items active" id="box-model-items">
+              <div class="property-item active" data-property="width">width</div>
+              <div class="property-item" data-property="height">height</div>
+              <div class="property-item" data-property="max-width">max-width</div>
+              <div class="property-item" data-property="max-height">max-height</div>
+              <div class="property-item" data-property="min-width">min-width</div>
+              <div class="property-item" data-property="min-height">min-height</div>
+              <div class="property-item" data-property="margin">margin</div>
+              <div class="property-item" data-property="margin-top">margin-top</div>
+              <div class="property-item" data-property="margin-right">margin-right</div>
+              <div class="property-item" data-property="margin-bottom">margin-bottom</div>
+              <div class="property-item" data-property="margin-left">margin-left</div>
+              <div class="property-item" data-property="padding">padding</div>
+              <div class="property-item" data-property="padding-top">padding-top</div>
+              <div class="property-item" data-property="padding-right">padding-right</div>
+              <div class="property-item" data-property="padding-bottom">padding-bottom</div>
+              <div class="property-item" data-property="padding-left">padding-left</div>
+              <div class="property-item" data-property="border">border</div>
+              <div class="property-item" data-property="border-width">border-width</div>
+              <div class="property-item" data-property="border-style">border-style</div>
+              <div class="property-item" data-property="border-color">border-color</div>
+              <div class="property-item" data-property="border-radius">border-radius</div>
+              <div class="property-item" data-property="outline">outline</div>
+              <div class="property-item" data-property="outline-width">outline-width</div>
+              <div class="property-item" data-property="outline-style">outline-style</div>
+              <div class="property-item" data-property="outline-color">outline-color</div>
+              <div class="property-item" data-property="box-shadow">box-shadow</div>
+              <div class="property-item" data-property="box-sizing">box-sizing</div>
+            </div>
+          </div>
+          
+          <div class="category">
+            <h3 class="category-title" data-category="display-positioning">
+              Display & Positioning
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="display-positioning-items">
+              <div class="property-item" data-property="display">display</div>
+              <div class="property-item" data-property="visibility">visibility</div>
+              <div class="property-item" data-property="overflow">overflow</div>
+              <div class="property-item" data-property="overflow-x">overflow-x</div>
+              <div class="property-item" data-property="overflow-y">overflow-y</div>
+              <div class="property-item" data-property="position">position</div>
+              <div class="property-item" data-property="top">top</div>
+              <div class="property-item" data-property="right">right</div>
+              <div class="property-item" data-property="bottom">bottom</div>
+              <div class="property-item" data-property="left">left</div>
+              <div class="property-item" data-property="z-index">z-index</div>
+              <div class="property-item" data-property="float">float</div>
+              <div class="property-item" data-property="clear">clear</div>
+              <div class="property-item" data-property="clip">clip</div>
+            </div>
+          </div>
+          
+          <!-- More categories collapsed by default -->
+          <div class="category">
+            <h3 class="category-title" data-category="typography">
+              Typography
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="typography-items">
+              <div class="property-item" data-property="color">color</div>
+              <div class="property-item" data-property="font">font</div>
+              <div class="property-item" data-property="font-family">font-family</div>
+              <div class="property-item" data-property="font-size">font-size</div>
+              <div class="property-item" data-property="font-weight">font-weight</div>
+              <div class="property-item" data-property="font-style">font-style</div>
+              <div class="property-item" data-property="font-variant">font-variant</div>
+              <div class="property-item" data-property="font-stretch">font-stretch</div>
+              <div class="property-item" data-property="letter-spacing">letter-spacing</div>
+              <div class="property-item" data-property="word-spacing">word-spacing</div>
+              <div class="property-item" data-property="line-height">line-height</div>
+              <div class="property-item" data-property="text-align">text-align</div>
+              <div class="property-item" data-property="text-decoration">text-decoration</div>
+              <div class="property-item" data-property="text-transform">text-transform</div>
+              <div class="property-item" data-property="text-indent">text-indent</div>
+              <div class="property-item" data-property="text-overflow">text-overflow</div>
+              <div class="property-item" data-property="direction">direction</div>
+              <div class="property-item" data-property="unicode-bidi">unicode-bidi</div>
+              <div class="property-item" data-property="white-space">white-space</div>
+              <div class="property-item" data-property="writing-mode">writing-mode</div>
+            </div>
+          </div>
+          
+          <div class="category">
+            <h3 class="category-title" data-category="background-borders">
+              Background & Borders
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="background-borders-items">
+              <div class="property-item" data-property="background">background</div>
+              <div class="property-item" data-property="background-color">background-color</div>
+              <div class="property-item" data-property="background-image">background-image</div>
+              <div class="property-item" data-property="background-size">background-size</div>
+              <div class="property-item" data-property="background-repeat">background-repeat</div>
+              <div class="property-item" data-property="background-position">background-position</div>
+              <div class="property-item" data-property="background-attachment">background-attachment</div>
+              <div class="property-item" data-property="background-clip">background-clip</div>
+              <div class="property-item" data-property="background-origin">background-origin</div>
+              <div class="property-item" data-property="border-image">border-image</div>
+              <div class="property-item" data-property="border-image-source">border-image-source</div>
+              <div class="property-item" data-property="border-image-slice">border-image-slice</div>
+              <div class="property-item" data-property="border-image-width">border-image-width</div>
+              <div class="property-item" data-property="border-image-outset">border-image-outset</div>
+              <div class="property-item" data-property="border-image-repeat">border-image-repeat</div>
+            </div>
+          </div>
+          
+          <div class="category">
+            <h3 class="category-title" data-category="flexbox">
+              Flexbox
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="flexbox-items">
+              <!-- Flexbox properties -->
+              <div class="property-item" data-property="display-flex">display-flex</div>
+              <div class="property-item" data-property="flex-direction">flex-direction</div>
+              <div class="property-item" data-property="flex-wrap">flex-wrap</div>
+              <div class="property-item" data-property="flex-flow">flex-flow</div>
+              <div class="property-item" data-property="justify-content">justify-content</div>
+              <div class="property-item" data-property="align-items">align-items</div>
+              <div class="property-item" data-property="align-content">align-content</div>
+              <div class="property-item" data-property="align-self">align-self</div>
+              <div class="property-item" data-property="flex">flex</div>
+              <div class="property-item" data-property="flex-grow">flex-grow</div>
+              <div class="property-item" data-property="flex-shrink">flex-shrink</div>
+              <div class="property-item" data-property="flex-basis">flex-basis</div>
+              <div class="property-item" data-property="order">order</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="grid">
+              Grid
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="grid-items">
+              <!-- Grid properties -->
+              <div class="property-item" data-property="display-grid">display-grid</div>
+              <div class="property-item" data-property="grid-template-columns">grid-template-columns</div>
+              <div class="property-item" data-property="grid-template-rows">grid-template-rows</div>
+              <div class="property-item" data-property="grid-template-areas">grid-template-areas</div>
+              <div class="property-item" data-property="grid-column-gap">grid-column-gap</div>
+              <div class="property-item" data-property="grid-row-gap">grid-row-gap</div>
+              <div class="property-item" data-property="grid-gap">grid-gap</div>
+              <div class="property-item" data-property="grid-column-start">grid-column-start</div>
+              <div class="property-item" data-property="grid-column-end">grid-column-end</div>
+              <div class="property-item" data-property="grid-row-start">grid-row-start</div>
+              <div class="property-item" data-property="grid-row-end">grid-row-end</div>
+              <div class="property-item" data-property="grid-area">grid-area</div>
+              <div class="property-item" data-property="place-items">place-items</div>
+              <div class="property-item" data-property="place-content">place-content</div>
+              <div class="property-item" data-property="place-self">place-self</div>
+            </div>
+          </div>
+          
+          <div class="category">
+            <h3 class="category-title" data-category="transition-animation">
+              Transitions & Animations
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="transition-animation-items">
+              <!-- Transition and Animation properties -->
+              <div class="property-item" data-property="transition">transition</div>
+              <div class="property-item" data-property="transition-property">transition-property</div>
+              <div class="property-item" data-property="transition-duration">transition-duration</div>
+              <div class="property-item" data-property="transition-timing-function">transition-timing-function</div>
+              <div class="property-item" data-property="transition-delay">transition-delay</div>
+              <div class="property-item" data-property="animation">animation</div>
+              <div class="property-item" data-property="animation-name">animation-name</div>
+              <div class="property-item" data-property="animation-duration">animation-duration</div>
+              <div class="property-item" data-property="animation-timing-function">animation-timing-function</div>
+              <div class="property-item" data-property="animation-delay">animation-delay</div>
+              <div class="property-item" data-property="animation-iteration-count">animation-iteration-count</div>
+              <div class="property-item" data-property="animation-direction">animation-direction</div>
+              <div class="property-item" data-property="animation-fill-mode">animation-fill-mode</div>
+              <div class="property-item" data-property="animation-play-state">animation-play-state</div>
+              <div class="property-item" data-property="keyframes">keyframes</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="transformation">
+              Transformations
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="transformation-items">
+              <!-- Transformation properties -->
+              <div class="property-item" data-property="transform">transform</div>
+              <div class="property-item" data-property="transform-origin">transform-origin</div>
+              <div class="property-item" data-property="transform-style">transform-style</div>
+              <div class="property-item" data-property="perspective">perspective</div>
+              <div class="property-item" data-property="perspective-origin">perspective-origin</div>
+              <div class="property-item" data-property="backface-visibility">backface-visibility</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="filter-effect">
+              Filters & Effects
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="filter-effect-items">
+              <div class="property-item" data-property="filter">filter</div>
+              <div class="property-item" data-property="backdrop-filter">Backdrop-filter</div>
+              <div class="property-item" data-property="mix-blend-mode">mix-blend-mode</div>
+              <div class="property-item" data-property="isolation">isolation</div>
+              <div class="property-item" data-property="opacity">opacity</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="list-table">
+              Lists & Tables
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="list-table-items">
+              <!-- List and Table properties -->
+              <div class="property-item" data-property="list-style">list-style</div>
+              <div class="property-item" data-property="list-style-type">list-style-type</div>
+              <div class="property-item" data-property="list-style-position">list-style-position</div>
+              <div class="property-item" data-property="list-style-image">list-style-image</div>
+              <div class="property-item" data-property="table-layout">table-layout</div>
+              <div class="property-item" data-property="border-collapse">border-collapse</div>
+              <div class="property-item" data-property="border-spacing">border-spacing</div>
+              <div class="property-item" data-property="caption-side">caption-side</div>
+              <div class="property-item" data-property="empty-cells">empty-cells</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="column">
+              Columns
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="column-items">
+              <!-- Column properties -->
+              <div class="property-item" data-property="columns">columns</div>
+              <div class="property-item" data-property="column-width">column-width</div>
+              <div class="property-item" data-property="column-count">column-count</div>
+              <div class="property-item" data-property="column-gap">column-gap</div>
+              <div class="property-item" data-property="column-rule">column-rule</div>
+              <div class="property-item" data-property="column-rule-width">column-rule-width</div>
+              <div class="property-item" data-property="column-rule-style">column-rule-style</div>
+              <div class="property-item" data-property="column-rule-color">column-rule-color</div>
+              <div class="property-item" data-property="column-span">column-span</div>
+              <div class="property-item" data-property="column-fill">column-fill</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="MediaQuerie">
+              Responsive & Media Queries
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="MediaQuerie-items">
+              <!-- Media Queries properties -->
+              <div class="property-item" data-property="@media">@media</div>
+              <div class="property-item" data-property="@supports">@supports</div>
+              <div class="property-item" data-property="min-width">min-width</div>
+              <div class="property-item" data-property="max-width">max-width</div>
+              <div class="property-item" data-property="min-height">min-height</div>
+              <div class="property-item" data-property="max-height">max-height</div>
+              <div class="property-item" data-property="aspect-ratio">aspect-ratio</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="variable-custom">
+              Variables & Custom Properties
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="variable-custom-items">
+              <!-- Variables and Custom Properties -->
+              <div class="property-item" data-property="--custom-property">--custom-property</div>
+              <div class="property-item" data-property="var(--custom-property)">var(--custom-property)</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="content-quote">
+              Content & Quotes
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="content-quote-items">
+              <!-- Content and Quotes properties -->
+              <div class="property-item" data-property="content">content</div>
+              <div class="property-item" data-property="quotes">quotes</div>
+              <div class="property-item" data-property="counter-reset">counter-reset</div>
+              <div class="property-item" data-property="counter-increment">counter-increment</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="cursor">
+              Cursor & User Interaction
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="cursor-items">
+              <!-- Cursor and User Interaction properties -->
+              <div class="property-item" data-property="cursor">cursor</div>
+              <div class="property-item" data-property="pointer-events">pointer-events</div>
+              <div class="property-item" data-property="user-select">user-select</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="appearance">
+              Scroll Behavior & Appearance
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="appearance-items">
+              <!-- Scroll Behavior and Appearance properties -->
+              <div class="property-item" data-property="scroll-behavior">scroll-behavior</div>
+              <div class="property-item" data-property="scroll-snap-type">scroll-snap-type</div>
+              <div class="property-item" data-property="scroll-snap-align">scroll-snap-align</div>
+              <div class="property-item" data-property="scrollbar-width">scrollbar-width</div>
+              <div class="property-item" data-property="scrollbar-color">scrollbar-color</div>
+              <div class="property-item" data-property="resize">resize</div>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3 class="category-title" data-category="miscellaneous">
+              Miscellaneous
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </h3>
+            <div class="category-items" id="miscellaneous-items">
+              <!-- Miscellaneous properties -->
+              <div class="property-item" data-property="all">all</div>
+              <div class="property-item" data-property="appearance">appearance</div>
+              <div class="property-item" data-property="direction">direction</div>
+              <div class="property-item" data-property="orphans">orphans</div>
+              <div class="property-item" data-property="widows">widows</div>
+              <div class="property-item" data-property="will-change">will-change</div>
+              <div class="property-item" data-property="zoom">zoom</div>
+            </div>
+          </div>
+          <!-- Remaining categories here -->
+          
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: 0%;"></div>
+          </div>
+          <div class="progress-text">
+            <span>Progress</span>
+            <span>0/170</span>
+          </div>
+        </div>
+        
+        <!-- Main lesson area -->
+        <div class="lesson-area">
+          <!-- Property content will be loaded here -->
+          <div class="lesson-header">
+            <span class="property-category">Box Model</span>
+            <h1 class="property-title">width</h1>
+            <p class="property-description">The width property sets the width of an element's content area. It can be applied to most HTML elements except non-replaced inline elements, table rows, and row groups.</p>
+          </div>
+          
+          <div class="syntax-section">
+            <h2 class="syntax-title">Syntax</h2>
+            <div class="syntax-box">width: auto | length | percentage | max-content | min-content | fit-content | fit-content(length) | initial | inherit;</div>
+            <p class="syntax-description">The width property can accept various types of values, such as lengths (px, em, rem), percentages, or keywords.</p>
+          </div>
+          
+          <div class="values-section">
+            <h2 class="values-title">Values</h2>
+            <table class="values-table">
+              <tr>
+                <th>Value</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td><code>auto</code></td>
+                <td>The browser will calculate and select a width for the specified element (default).</td>
+              </tr>
+              <tr>
+                <td><code>length</code></td>
+                <td>Defines the width in px, cm, em, etc. Learn more about length units.</td>
+              </tr>
+              <tr>
+                <td><code>percentage</code></td>
+                <td>Defines the width as a percentage of the containing block's width.</td>
+              </tr>
+              <tr>
+                <td><code>max-content</code></td>
+                <td>The intrinsic preferred width.</td>
+              </tr>
+              <tr>
+                <td><code>min-content</code></td>
+                <td>The intrinsic minimum width.</td>
+              </tr>
+              <tr>
+                <td><code>fit-content</code></td>
+                <td>The larger of min-content and the smaller of max-content and available width.</td>
+              </tr>
+              <tr>
+                <td><code>initial</code></td>
+                <td>Sets this property to its default value.</td>
+              </tr>
+              <tr>
+                <td><code>inherit</code></td>
+                <td>Inherits this property from its parent element.</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="example-section">
+            <h2 class="example-title">Examples</h2>
+            
+            <div class="example-card">
+              <div class="example-header">
+                <span>Basic width example</span>
+                <span>Result</span>
+              </div>
+              <div class="example-content">
+                <div class="example-code">
+.box-1 {
+  width: 100px;
+  height: 100px;
+  background-color: #9b6dff;
+}
+
+.box-2 {
+  width: 200px;
+  height: 100px;
+  background-color: #ff6d9b;
+}
+
+.box-3 {
+  width: 300px;
+  height: 100px;
+  background-color: #6d9bff;
+}</div>
+                <div class="example-visual">
+                  <div id="width-example-1"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="example-card">
+              <div class="example-header">
+                <span>Percentage width example</span>
+                <span>Result</span>
+              </div>
+              <div class="example-content">
+                <div class="example-code">
+.container {
+  width: 100%;
+  background-color: #f3eaff;
+  padding: 10px;
+}
+
+.box-percentage {
+  width: 50%;
+  height: 100px;
+  background-color: #9b6dff;
+}</div>
+                <div class="example-visual">
+                  <div id="width-example-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="note-section">
+            <h3 class="note-title">Important Note</h3>
+            <p class="note-content">The width property does not include padding, borders, or margins. It sets the width of the content area only. If you want the element to maintain a specific width no matter what, you can use the box-sizing property with the value border-box.</p>
+          </div>
+          
+          <div class="browser-support">
+            <h2 class="browser-title">Browser Support</h2>
+            <div class="browser-icons">
+              <div class="browser-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <line x1="21.17" y1="8" x2="12" y2="8"></line>
+                  <line x1="3.95" y1="6.06" x2="8.54" y2="14"></line>
+                  <line x1="10.88" y1="21.94" x2="15.46" y2="14"></line>
+                </svg>
+                <span>Chrome</span>
+              </div>
+              <div class="browser-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+                <span>Firefox</span>
+              </div>
+              <div class="browser-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <line x1="12" y1="2" x2="12" y2="22"></line>
+                </svg>
+                <span>Safari</span>
+              </div>
+              <div class="browser-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                <span>Edge</span>
+              </div>
+              <div class="browser-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Opera</span>
+              </div>
+            </div>
+            <p>The width property is supported in all major browsers.</p>
+          </div>
+          
+          <div class="navigation-buttons">
+            <button class="prev-button" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Previous
+            </button>
+            <button class="next-button">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Quiz container -->
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <h1 class="quiz-title">Box Model Quiz</h1>
+            <p class="quiz-description">Test your knowledge of the CSS Box Model properties.</p>
+          </div>
+          
+          <div class="quiz-progress">
+            <div class="quiz-progress-text">
+              <span>Question <span id="current-question">1</span>/<span id="total-questions">10</span></span>
+              <span>Score: <span id="quiz-score">0</span>/<span id="quiz-total">100</span></span>
+            </div>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-value" style="width: 10%;"></div>
+            </div>
+          </div>
+          
+          <div class="question-card">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">Which CSS property sets the width of an element's content area?</div>
+            
+            <div class="options-container">
+              <div class="option" data-option="A">
+                <div class="option-content">
+                  <div class="option-marker">A</div>
+                  <div class="option-text">width</div>
+                </div>
+              </div>
+              <div class="option" data-option="B">
+                <div class="option-content">
+                  <div class="option-marker">B</div>
+                  <div class="option-text">size</div>
+                </div>
+              </div>
+              <div class="option" data-option="C">
+                <div class="option-content">
+                  <div class="option-marker">C</div>
+                  <div class="option-text">element-width</div>
+                </div>
+              </div>
+              <div class="option" data-option="D">
+                <div class="option-content">
+                  <div class="option-marker">D</div>
+                  <div class="option-text">content-width</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="explanation">
+              <div class="explanation-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Explanation
+              </div>
+              <div class="explanation-content">
+                The correct answer is A. The width CSS property sets the width of an element's content area. It's one of the fundamental CSS properties for controlling element dimensions.
+              </div>
+            </div>
+          </div>
+          
+          <div class="quiz-buttons">
+            <button class="quiz-back-button" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Previous
+            </button>
+            <button class="quiz-next-button" disabled>
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Quiz Result -->
+        <div class="quiz-result">
+          <div class="result-score">80%</div>
+          <div class="result-message">Great job!</div>
+          <div class="result-detail">You answered 8 out of 10 questions correctly.</div>
+          
+          <div class="result-buttons">
+            <button class="review-button">
+              Review Answers
+            </button>
+            <button class="continue-button">
+              Continue Learning
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Authentication check
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('css_clash_user') || '{}');
+      if (!user.isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Update user greeting
+      document.getElementById('user-greeting').textContent = `Hello, ${user.name || 'User'}!`;
+      
+      // Initialize the learning platform
+      initLearningPlatform();
+    });
+    
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('css_clash_user');
+      window.location.href = 'login.html';
+    });
+    
+    document.getElementById('mobile-logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('css_clash_user');
+      window.location.href = 'login.html';
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+    
+    // Initialize learning platform
+    function initLearningPlatform() {
+      // Initialize examples
+      initWidthExamples();
+      
+      // Initialize category toggling
+      initCategoryToggle();
+      
+      // Initialize property navigation
+      initPropertyNavigation();
+      
+      // Initialize quiz functionality
+      initQuiz();
+      
+      // Track progress (for demonstration)
+      trackProgress();
+    }
+    
+    // Initialize width examples
+    function initWidthExamples() {
+      const example1Container = document.getElementById('width-example-1');
+      const example2Container = document.getElementById('width-example-2');
+      
+      // Example 1: Basic width
+      example1Container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="width: 100px; height: 50px; background-color: #9b6dff;"></div>
+          <div style="width: 200px; height: 50px; background-color: #ff6d9b;"></div>
+          <div style="width: 300px; height: 50px; background-color: #6d9bff;"></div>
+        </div>
+      `;
+      
+      // Example 2: Percentage width
+      example2Container.innerHTML = `
+        <div style="width: 100%; background-color: #f3eaff; padding: 10px;">
+          <div style="width: 50%; height: 50px; background-color: #9b6dff;"></div>
+        </div>
+      `;
+    }
+    
+    // Initialize category toggling
+    function initCategoryToggle() {
+      const categoryTitles = document.querySelectorAll('.category-title');
+      
+      categoryTitles.forEach(title => {
+        title.addEventListener('click', () => {
+          const categoryId = title.getAttribute('data-category');
+          const categoryItems = document.getElementById(`${categoryId}-items`);
+          
+          categoryItems.classList.toggle('active');
+        });
+      });
+    }
+    
+    // CSS Properties data structure
+    const cssPropertiesData = {
+      'width': {
+        category: 'Box Model',
+        description: 'The width property sets the width of an element\'s content area. It can be applied to most HTML elements except non-replaced inline elements, table rows, and row groups.',
+        syntax: 'width: auto | length | percentage | max-content | min-content | fit-content | fit-content(length) | initial | inherit;',
+        values: [
+          { name: 'auto', description: 'The browser will calculate and select a width for the specified element (default).' },
+          { name: 'length', description: 'Defines the width in px, cm, em, etc. Learn more about length units.' },
+          { name: 'percentage', description: 'Defines the width as a percentage of the containing block\'s width.' },
+          { name: 'max-content', description: 'The intrinsic preferred width.' },
+          { name: 'min-content', description: 'The intrinsic minimum width.' },
+          { name: 'fit-content', description: 'The larger of min-content and the smaller of max-content and available width.' },
+          { name: 'initial', description: 'Sets this property to its default value.' },
+          { name: 'inherit', description: 'Inherits this property from its parent element.' }
+        ],
+        note: 'The width property does not include padding, borders, or margins. It sets the width of the content area only. If you want the element to maintain a specific width no matter what, you can use the box-sizing property with the value border-box.'
+      },
+      // Additional properties would be defined here
+    };
+    
+    // Quiz data
+    const quizData = {
+      'box-model': [
+        {
+          question: 'Which CSS property sets the width of an element\'s content area?',
+          options: [
+            { id: 'A', text: 'width' },
+            { id: 'B', text: 'size' },
+            { id: 'C', text: 'element-width' },
+            { id: 'D', text: 'content-width' }
+          ],
+          correctAnswer: 'A',
+          explanation: 'The correct answer is A. The width CSS property sets the width of an element\'s content area. It\'s one of the fundamental CSS properties for controlling element dimensions.'
+        },
+        {
+          question: 'Which box-sizing value makes width and height include padding and border?',
+          options: [
+            { id: 'A', text: 'content-box' },
+            { id: 'B', text: 'padding-box' },
+            { id: 'C', text: 'border-box' },
+            { id: 'D', text: 'margin-box' }
+          ],
+          correctAnswer: 'C',
+          explanation: 'The correct answer is C. The border-box value for box-sizing makes the width and height properties include content, padding, and border, but not margin.'
+        },
+        {
+          question: 'What is the default value for the margin property?',
+          options: [
+            { id: 'A', text: '0' },
+            { id: 'B', text: 'auto' },
+            { id: 'C', text: '1px' },
+            { id: 'D', text: 'inherit' }
+          ],
+          correctAnswer: 'A',
+          explanation: 'The correct answer is A. The default value for the margin property is 0, meaning no margin is applied unless specified.'
+        },
+        {
+          question: 'Which of these is NOT a valid border-style value?',
+          options: [
+            { id: 'A', text: 'solid' },
+            { id: 'B', text: 'dotted' },
+            { id: 'C', text: 'curved' },
+            { id: 'D', text: 'dashed' }
+          ],
+          correctAnswer: 'C',
+          explanation: 'The correct answer is C. "curved" is not a valid border-style value. Valid values include solid, dotted, dashed, double, groove, ridge, inset, outset, none, and hidden.'
+        },
+        {
+          question: 'How do you specify different paddings for each side of an element in a single declaration?',
+          options: [
+            { id: 'A', text: 'padding: top right bottom left;' },
+            { id: 'B', text: 'padding: left right top bottom;' },
+            { id: 'C', text: 'padding: bottom left top right;' },
+            { id: 'D', text: 'padding: right left bottom top;' }
+          ],
+          correctAnswer: 'A',
+          explanation: 'The correct answer is A. When specifying padding in a single declaration, the order is padding: top right bottom left; (clockwise from top).'
+        },
+        {
+          question: 'Which CSS property is used to add rounded corners to an element?',
+          options: [
+            { id: 'A', text: 'corner-radius' },
+            { id: 'B', text: 'border-curve' },
+            { id: 'C', text: 'border-radius' },
+            { id: 'D', text: 'round-corner' }
+          ],
+          correctAnswer: 'C',
+          explanation: 'The correct answer is C. The border-radius property is used to add rounded corners to an element.'
+        },
+        {
+          question: 'What happens when you set width: 100% on an element with padding?',
+          options: [
+            { id: 'A', text: 'The element will be 100% of the parent width plus the padding' },
+            { id: 'B', text: 'The content area will be 100% of the parent width' },
+            { id: 'C', text: 'The element will be exactly 100% of the parent width, and the content area will shrink to accommodate the padding' },
+            { id: 'D', text: 'The padding will be ignored' }
+          ],
+          correctAnswer: 'A',
+          explanation: 'The correct answer is A. When you set width: 100% on an element with padding and the box-sizing is set to content-box (default), the element\'s total width will be 100% of the parent width plus the padding, potentially causing overflow.'
+        },
+        {
+          question: 'What is the purpose of the max-width property?',
+          options: [
+            { id: 'A', text: 'To set a fixed width that cannot be changed' },
+            { id: 'B', text: 'To set a minimum width that an element can shrink to' },
+            { id: 'C', text: 'To set a maximum width that an element can expand to' },
+            { id: 'D', text: 'To override the width property in all cases' }
+          ],
+          correctAnswer: 'C',
+          explanation: 'The correct answer is C. The max-width property sets a maximum width that an element can expand to, which is particularly useful for responsive design.'
+        },
+        {
+          question: 'How does the box-shadow property affect the box model?',
+          options: [
+            { id: 'A', text: 'It increases the element\'s width and height' },
+            { id: 'B', text: 'It adds to the margin area' },
+            { id: 'C', text: 'It adds to the border area' },
+            { id: 'D', text: 'It does not affect the box model dimensions' }
+          ],
+          correctAnswer: 'D',
+          explanation: 'The correct answer is D. The box-shadow property creates a visual shadow effect but does not affect the actual dimensions of the box model or layout flow.'
+        },
+        {
+          question: 'What is the difference between margin and padding?',
+          options: [
+            { id: 'A', text: 'Margin is inside the border, padding is outside' },
+            { id: 'B', text: 'Padding is inside the border, margin is outside' },
+            { id: 'C', text: 'Margin is transparent, padding is opaque' },
+            { id: 'D', text: 'There is no difference; they can be used interchangeably' }
+          ],
+          correctAnswer: 'B',
+          explanation: 'The correct answer is B. Padding is the space inside the border between the border and the content, while margin is the space outside the border between the border and adjacent elements.'
+        }
+      ],
+      // Additional quizzes would be defined here
+    };
+    
+    // Current lesson and quiz state
+    let currentState = {
+      property: 'width',
+      category: 'box-model',
+      completedProperties: [],
+      propertyIndex: 0,
+      quizActive: false,
+      currentQuizCategory: '',
+      currentQuestionIndex: 0,
+      quizAnswers: [],
+      quizScore: 0
+    };
+    
+    // Initialize property navigation
+    function initPropertyNavigation() {
+      const propertyItems = document.querySelectorAll('.property-item');
+      const nextButton = document.querySelector('.next-button');
+      const prevButton = document.querySelector('.prev-button');
+      
+      // Property item click
+      propertyItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const property = item.getAttribute('data-property');
+          loadProperty(property);
+          
+          // Update active state
+          document.querySelectorAll('.property-item.active').forEach(active => {
+            active.classList.remove('active');
+          });
+          item.classList.add('active');
+        });
+      });
+      
+      // Next button click
+      nextButton.addEventListener('click', () => {
+        // Check if we need to show a quiz
+        if (currentState.propertyIndex > 0 && (currentState.propertyIndex + 1) % 10 === 0) {
+          showQuiz(currentState.category);
+        } else {
+          // Move to next property
+          const propertyItems = document.querySelectorAll('.property-item');
+          let nextIndex = (currentState.propertyIndex + 1) % propertyItems.length;
+          const nextProperty = propertyItems[nextIndex].getAttribute('data-property');
+          loadProperty(nextProperty);
+          
+          // Update active state
+          document.querySelectorAll('.property-item.active').forEach(active => {
+            active.classList.remove('active');
+          });
+          propertyItems[nextIndex].classList.add('active');
+        }
+      });
+      
+      // Previous button click
+      prevButton.addEventListener('click', () => {
+        // Move to previous property
+        const propertyItems = document.querySelectorAll('.property-item');
+        let prevIndex = (currentState.propertyIndex - 1 + propertyItems.length) % propertyItems.length;
+        const prevProperty = propertyItems[prevIndex].getAttribute('data-property');
+        loadProperty(prevProperty);
+        
+        // Update active state
+        document.querySelectorAll('.property-item.active').forEach(active => {
+          active.classList.remove('active');
+        });
+        propertyItems[prevIndex].classList.add('active');
+      });
+    }
+
+    // Lesson data for CSS properties
+    const lessons = {
+  "width": {
+    category: "Box Model",
+    title: "width",
+    description: "The width property sets the width of an element's content area...",
+    syntax: "width: auto | length | percentage | max-content | min-content | fit-content | initial | inherit;",
+    values: [
+      { value: "auto", desc: "Browser calculates the width (default)." },
+      { value: "length", desc: "Width in px, cm, em, etc." },
+      { value: "percentage", desc: "Relative to containing block." }
+    ],
+    example: ".box { width: 100px; height: 50px; background-color: lightblue; }"
+  },
+  "height": {
+    category: "Box Model",
+    title: "height",
+    description: "The height property sets the height of an element...",
+    syntax: "height: auto | length | percentage | max-content | min-content | fit-content | initial | inherit;",
+    values: [
+      { value: "auto", desc: "Browser calculates height (default)." },
+      { value: "length", desc: "Height in px, cm, em, etc." }
+    ],
+    example: ".box { height: 200px; background-color: lightgreen; }"
+  },
+  "max-width": {
+    category: "Box Model",
+    title: "max-width",
+    description: "The max-width property sets the maximum width of an element...",
+    syntax: "max-width: none | length | percentage | initial | inherit;",
+    values: [
+      { value: "none", desc: "No maximum width (default)." },
+      { value: "length", desc: "Maximum width in px, cm, etc." },
+      { value: "percentage", desc: "Relative to containing block." }
+    ],
+    example: ".box { max-width: 300px; background-color: pink; }"
+  },
+  "max-height": {
+    category: "Box Model",
+    title: "max-height",
+    description: "The max-height property sets the maximum height of an element...",
+    syntax: "max-height: none | length | percentage | initial | inherit;",
+    values: [
+      { value: "none", desc: "No maximum height (default)." },
+      { value: "length", desc: "Maximum height in px, cm, etc." },
+      { value: "percentage", desc: "Relative to containing block." }
+    ],
+    example: ".box { max-height: 500px; background-color: yellow; }"
+  },
+  "min-width": {
+    category: "Box Model",
+    title: "min-width",
+    description: "The min-width property sets the minimum width of an element...",
+    syntax: "min-width: none | length | percentage | initial | inherit;",
+    values: [
+      { value: "none", desc: "No minimum width (default)." },
+      { value: "length", desc: "Minimum width in px, cm, etc." },
+      { value: "percentage", desc: "Relative to containing block." }
+    ],
+    example: ".box { min-width: 150px; background-color: orange; }"
+  },
+  "min-height": {
+    category: "Box Model",
+    title: "min-height",
+    description: "The min-height property sets the minimum height of an element...",
+    syntax: "min-height: none | length | percentage | initial | inherit;",
+    values: [
+      { value: "none", desc: "No minimum height (default)." },
+      { value: "length", desc: "Minimum height in px, cm, etc." },
+      { value: "percentage", desc: "Relative to containing block." }
+    ],
+    example: ".box { min-height: 200px; background-color: lightgray; }"
+  }
+};
+
+
+// Get lesson area elements
+const lessonCategory = document.querySelector(".property-category");
+const lessonTitle = document.querySelector(".property-title");
+const lessonDescription = document.querySelector(".property-description");
+const lessonSyntax = document.querySelector(".syntax-box");
+const lessonValuesTable = document.querySelector(".values-table tbody");
+const lessonExample = document.querySelector(".example-code");
+
+// Track current lesson
+let propertyKeys = Object.keys(lessons);
+let currentIndex = 0;
+
+// Function to update lesson content
+function updateLesson(property) {
+  const lesson = lessons[property];
+
+  lessonCategory.textContent = lesson.category;
+  lessonTitle.textContent = lesson.title;
+  lessonDescription.textContent = lesson.description;
+  lessonSyntax.textContent = lesson.syntax;
+
+  // Populate values table
+  lessonValuesTable.innerHTML = lesson.values.map(val =>
+    `<tr><td><code>${val.value}</code></td><td>${val.desc}</td></tr>`
+  ).join("");
+
+  // Update example
+  lessonExample.textContent = lesson.example;
+}
+
+// Handle sidebar clicks
+document.querySelectorAll(".property-item").forEach(item => {
+  item.addEventListener("click", function () {
+    const property = this.getAttribute("data-property");
+    currentIndex = propertyKeys.indexOf(property);
+    updateLesson(property);
+  });
+});
+
+// Handle Next/Previous Buttons
+document.querySelector(".next-button").addEventListener("click", function () {
+  if (currentIndex < propertyKeys.length - 1) {
+    currentIndex++;
+    updateLesson(propertyKeys[currentIndex]);
+  }
+});
+
+document.querySelector(".prev-button").addEventListener("click", function () {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateLesson(propertyKeys[currentIndex]);
+  }
+});
+
+// Load first lesson initially
+updateLesson(propertyKeys[0]);
+
+    
+    // Load property content
+    function loadProperty(property) {
+      // For now, we just have width data, but in a real app, you'd load the appropriate property data
+      const propertyData = cssPropertiesData[property] || cssPropertiesData['width'];
+      
+      // Find property index
+      const propertyItems = document.querySelectorAll('.property-item');
+      propertyItems.forEach((item, index) => {
+        if (item.getAttribute('data-property') === property) {
+          currentState.propertyIndex = index;
+          
+          // Update navigation buttons
+          const prevButton = document.querySelector('.prev-button');
+          const nextButton = document.querySelector('.next-button');
+          
+          prevButton.disabled = index === 0;
+          nextButton.disabled = false;
+        }
+      });
+      
+      // Update current state
+      currentState.property = property;
+      
+      // Toggle visibility
+      document.querySelector('.lesson-area').style.display = 'block';
+      document.querySelector('.quiz-container').style.display = 'none';
+      document.querySelector('.quiz-result').style.display = 'none';
+      
+      // Mark as completed if not already
+      if (!currentState.completedProperties.includes(property)) {
+        currentState.completedProperties.push(property);
+        trackProgress();
+      }
+    }
+    
+    // Show quiz
+    function showQuiz(category) {
+      // Set quiz as active
+      currentState.quizActive = true;
+      currentState.currentQuizCategory = category;
+      currentState.currentQuestionIndex = 0;
+      currentState.quizAnswers = [];
+      currentState.quizScore = 0;
+      
+      // Toggle visibility
+      document.querySelector('.lesson-area').style.display = 'none';
+      document.querySelector('.quiz-container').style.display = 'block';
+      document.querySelector('.quiz-result').style.display = 'none';
+      
+      // Load first question
+      loadQuizQuestion(0);
+      
+      // Update UI
+      document.getElementById('current-question').textContent = '1';
+      document.getElementById('total-questions').textContent = quizData[category].length;
+      document.getElementById('quiz-score').textContent = '0';
+      document.getElementById('quiz-total').textContent = quizData[category].length * 10;
+      
+      // Update progress bar
+      const progressValue = document.querySelector('.quiz-progress-value');
+      progressValue.style.width = `${100 / quizData[category].length}%`;
+    }
+    
+    // Load quiz question
+    function loadQuizQuestion(index) {
+      // Get current quiz data
+      const quiz = quizData[currentState.currentQuizCategory];
+      if (!quiz || index >= quiz.length) return;
+      
+      const question = quiz[index];
+      
+      // Update question UI
+      document.querySelector('.question-number').textContent = `Question ${index + 1}`;
+      document.querySelector('.question-text').textContent = question.question;
+      
+      // Update options
+      const optionsContainer = document.querySelector('.options-container');
+      optionsContainer.innerHTML = '';
+      
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        optionElement.setAttribute('data-option', option.id);
+        
+        optionElement.innerHTML = `
+          <div class="option-content">
+            <div class="option-marker">${option.id}</div>
+            <div class="option-text">${option.text}</div>
+          </div>
+        `;
+        
+        optionElement.addEventListener('click', () => selectOption(option.id));
+        
+        optionsContainer.appendChild(optionElement);
+      });
+      
+      // Reset explanation
+      const explanation = document.querySelector('.explanation');
+      explanation.classList.remove('active');
+      
+      // Update buttons
+      const backButton = document.querySelector('.quiz-back-button');
+      backButton.disabled = index === 0;
+      
+      const nextButton = document.querySelector('.quiz-next-button');
+      nextButton.disabled = true;
+    }
+    
+    // Select option
+    function selectOption(optionId) {
+      // If already answered, do nothing
+      if (document.querySelector('.option.correct') || document.querySelector('.option.incorrect')) {
+        return;
+      }
+      
+      // Get current quiz data
+      const quiz = quizData[currentState.currentQuizCategory];
+      const question = quiz[currentState.currentQuestionIndex];
+      
+      // Store user's answer
+      currentState.quizAnswers[currentState.currentQuestionIndex] = optionId;
+      
+      // Mark selected option
+      document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      const selectedOption = document.querySelector(`.option[data-option="${optionId}"]`);
+      selectedOption.classList.add('selected');
+      
+      // Show correct/incorrect
+      if (optionId === question.correctAnswer) {
+        selectedOption.classList.add('correct');
+        currentState.quizScore += 10;
+        document.getElementById('quiz-score').textContent = currentState.quizScore;
+      } else {
+        selectedOption.classList.add('incorrect');
+        const correctOption = document.querySelector(`.option[data-option="${question.correctAnswer}"]`);
+        correctOption.classList.add('correct');
+      }
+      
+      // Show explanation
+      const explanation = document.querySelector('.explanation');
+      explanation.classList.add('active');
+      document.querySelector('.explanation-content').textContent = question.explanation;
+      
+      // Enable next button
+      document.querySelector('.quiz-next-button').disabled = false;
+    }
+    
+    // Initialize quiz functionality
+    function initQuiz() {
+      const quizNextButton = document.querySelector('.quiz-next-button');
+      const quizBackButton = document.querySelector('.quiz-back-button');
+      
+      // Quiz next button
+      quizNextButton.addEventListener('click', () => {
+        // Check if there are more questions
+        const quiz = quizData[currentState.currentQuizCategory];
+        
+        if (currentState.currentQuestionIndex < quiz.length - 1) {
+          // Move to next question
+          currentState.currentQuestionIndex++;
+          loadQuizQuestion(currentState.currentQuestionIndex);
+          
+          // Update UI
+          document.getElementById('current-question').textContent = currentState.currentQuestionIndex + 1;
+          
+          // Update progress bar
+          const progressValue = document.querySelector('.quiz-progress-value');
+          progressValue.style.width = `${(currentState.currentQuestionIndex + 1) * 100 / quiz.length}%`;
+        } else {
+          // Show results
+          showQuizResults();
+        }
+      });
+      
+      // Quiz back button
+      quizBackButton.addEventListener('click', () => {
+        if (currentState.currentQuestionIndex > 0) {
+          // Move to previous question
+          currentState.currentQuestionIndex--;
+          loadQuizQuestion(currentState.currentQuestionIndex);
+          
+          // Update UI
+          document.getElementById('current-question').textContent = currentState.currentQuestionIndex + 1;
+          
+          // Update progress bar
+          const progressValue = document.querySelector('.quiz-progress-value');
+          progressValue.style.width = `${(currentState.currentQuestionIndex + 1) * 100 / quizData[currentState.currentQuizCategory].length}%`;
+        }
+      });
+      
+      // Continue button on results
+      document.querySelector('.continue-button').addEventListener('click', () => {
+        // Reset quiz state
+        currentState.quizActive = false;
+        
+        // Move to next section of properties
+        const propertyItems = document.querySelectorAll('.property-item');
+        let nextIndex = (currentState.propertyIndex + 1) % propertyItems.length;
+        const nextProperty = propertyItems[nextIndex].getAttribute('data-property');
+        loadProperty(nextProperty);
+        
+        // Update active state
+        document.querySelectorAll('.property-item.active').forEach(active => {
+          active.classList.remove('active');
+        });
+        propertyItems[nextIndex].classList.add('active');
+      });
+      
+      // Review button on results
+      document.querySelector('.review-button').addEventListener('click', () => {
+        // For simplicity, just restart the quiz
+        showQuiz(currentState.currentQuizCategory);
+      });
+    }
+    
+    // Show quiz results
+    function showQuizResults() {
+      // Calculate score percentage
+      const quiz = quizData[currentState.currentQuizCategory];
+      const scorePercentage = Math.round((currentState.quizScore / (quiz.length * 10)) * 100);
+      
+      // Update result UI
+      document.querySelector('.result-score').textContent = `${scorePercentage}%`;
+      document.querySelector('.result-detail').textContent = `You answered ${currentState.quizScore / 10} out of ${quiz.length} questions correctly.`;
+      
+      // Set result message based on score
+      let resultMessage = '';
+      if (scorePercentage >= 90) {
+        resultMessage = 'Excellent! You\'re a CSS master!';
+      } else if (scorePercentage >= 70) {
+        resultMessage = 'Great job! You have a solid understanding.';
+      } else if (scorePercentage >= 50) {
+        resultMessage = 'Good effort! Keep practicing.';
+      } else {
+        resultMessage = 'You\'re still learning. Review and try again!';
+      }
+      
+      document.querySelector('.result-message').textContent = resultMessage;
+      
+      // Toggle visibility
+      document.querySelector('.quiz-container').style.display = 'none';
+      document.querySelector('.quiz-result').style.display = 'block';
+    }
+    
+    // Track progress
+    function trackProgress() {
+      const totalProperties = document.querySelectorAll('.property-item').length;
+      const completedCount = currentState.completedProperties.length;
+      
+      // Update progress bar
+      const progressBar = document.querySelector('.progress-bar');
+      progressBar.style.width = `${(completedCount / totalProperties) * 100}%`;
+      
+      // Update progress text
+      const progressText = document.querySelector('.progress-text span:last-child');
+      progressText.textContent = `${completedCount}/${totalProperties}`;
+      
+      // Save progress to localStorage
+      localStorage.setItem('css_learn_progress', JSON.stringify({
+        completedProperties: currentState.completedProperties,
+        lastProperty: currentState.property
+      }));
+    }
+    
+  </script>
+</body>
+</html>
