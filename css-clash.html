@@ -2441,11 +2441,9 @@
 }
     ];
     
-    // Generate a total of 100 challenges based on the first 3
-    // This is for demonstration purposes - in a real app, each challenge would be unique
     for (let i = 15; i <= 100; i++) {
       // Clone and modify an existing challenge
-      const baseChallenge = challenges[i % 15]; // Cycle through the first 3 challenges
+      const baseChallenge = challenges[i % 15]; 
       const newChallenge = { ...baseChallenge };
       
       newChallenge.id = i;
